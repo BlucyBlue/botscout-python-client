@@ -31,12 +31,14 @@ def validate_qparams(params):
 	return formatted_params
 
 
-def make_query(query_params, multiple=True):
+def make_query(query_params, multiple=True, xml_format=False):
 
 	if KEY and "key" not in query_params.keys():
 		query_params["key"] = KEY
 
-	url = BASE_URL + "multi" if multiple else BASE_URL
+	url = BASE_URL + "multi" if multiple is not None else BASE_URL
+
+	url = url + f"&format=xml" if out_format else url 
 
 	for k, v in query_params.items():
 		url += f"&{k}={v}"
